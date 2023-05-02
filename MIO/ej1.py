@@ -1,4 +1,5 @@
 import funciones as f
-num1 = int(input('Ingrese un número: '))
+from random import randint
+num1 = int(randint(0, 1000))
 print(
     f'El valor en la sucesión de Fibonacci para {num1} es {f.fibonachi_r(num1)}')

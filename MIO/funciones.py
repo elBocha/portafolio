@@ -179,3 +179,117 @@ def suma_digitos(n):
 # 15. Desarrollar una función que permita calcular la raíz cuadrada entera de un número entero.
 # Puede utilizar una función auxiliar para que la función principal solo reciba como parámetro
 # el número a calcular su raíz.
+
+
+def raiz_cuadrada_entera(n, inicio=0, fin=None):
+    if fin is None:
+        fin = n
+    if inicio == fin:
+        return inicio
+    medio = (inicio + fin) // 2
+    if medio ** 2 == n:
+        return medio
+    elif medio ** 2 > n:
+        return raiz_cuadrada_entera(n, inicio, medio)
+    else:
+        return raiz_cuadrada_entera(n, medio + 1, fin)
+
+
+# Implementar un función recursiva que permita obtener el valor de an en una sucesión geomé-
+# trica (o progresión geométrica) con un valor a1= 2 y una razón r = -3. Además desarrollar un
+# algoritmo que permita visualizar todos los valores de dicha sucesión desde a1 hasta an.
+
+def sucesion_geometrica(a1, r, n):
+    if n == 1:
+        return a1
+    else:
+        return r * sucesion_geometrica(a1, r, n-1)
+
+# 17. Escribir una función recursiva que permita mostrar los valores de un vector de atrás hacia adelante.
+
+
+def mostrar_vector_reversa(vector):
+    if len(vector) == 0:
+        return
+    else:
+        print(vector[-1])
+        return mostrar_vector_reversa(vector[:-1])
+
+# 18.Implementar una función recursiva que permita recorrer una matriz y mostrar sus valores.
+
+
+def recorrer_matriz(matriz, fila=0, columna=0):
+    filas = len(matriz)
+    columnas = len(matriz[0])
+    if fila == filas or columna == columnas:
+        return
+    print(matriz[fila][columna])
+    if columna == columnas - 1:
+        recorrer_matriz(matriz, fila+1, 0)
+    else:
+        recorrer_matriz(matriz, fila, columna+1)
+
+# 19.Dada la siguiente definición de sucesión recursiva, realizar una función recursiva que permita
+# calcular el valor de un determinado número en dicha sucesión.
+
+
+def sucesion(n):
+    if n == 1:
+        return 2
+    else:
+        if n >= 2:
+            return n + (1/sucesion(n-1))
+
+# 20.Desarrollar un algoritmo que permita implementar la búsqueda secuencial con centinela de
+# manera recursiva, y permita determinar si un valor dado está o no en dicha lista.
+
+
+def bsr(lista, n, x):
+    if n == 0:
+        return False
+    if lista[n-1] == x:
+        return True
+    return bsr(lista, n-1, x)
+
+
+# 21. Dada una lista de valores ordenadas, desarrollar un algoritmo que modifique el método de
+# búsqueda binaria para que funcione de forma recursiva, y permita determinar si un valor dado
+# está o no en dicha lista.
+
+def busqueda_binaria_recursiva(lista, valor, primero, ultimo):
+    if ultimo >= primero:
+        mitad = primero + (ultimo - primero) // 2
+        if lista[mitad] == valor:
+            return True
+        elif lista[mitad] > valor:
+            return busqueda_binaria_recursiva(lista, valor, primero, mitad - 1)
+        else:
+            return busqueda_binaria_recursiva(lista, valor, mitad + 1, ultimo)
+    else:
+        return False
+
+
+# 22.El problema de la mochila Jedi. Suponga que un Jedi (Luke Skywalker, Obi-Wan Kenobi, Rey u
+# otro, el que más le guste) está atrapado, pero muy cerca está su mochila que contiene muchos
+# objetos. Implementar una función recursiva llamada “usar la fuerza” que le permita al Jedi “con
+# ayuda de la fuerza” realizar las siguientes actividades:
+# a. sacar los objetos de la mochila de a uno a la vez hasta encontrar un sable de luz o que no
+# queden más objetos en la mochila;
+
+# b. determinar si la mochila contiene un sable de luz y cuantos objetos fueron necesarios sa-
+# car para encontrarlo;
+
+# c. Utilizar un vector para representar la mochila.
+
+def usar_la_fuerza(mochila, posicion):
+    if posicion == len(mochila):
+        return 0
+    objeto_actual = mochila[posicion]
+    if objeto_actual == "sable de luz":
+        return 1
+    else:
+        objetos_necesarios = usar_la_fuerza(mochila, posicion + 1)
+        if objetos_necesarios == 0:
+            return 0
+        else:
+            return objetos_necesarios + 1
